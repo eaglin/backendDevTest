@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mvabal.techtest.application.dtos.ProductDto;
 import com.mvabal.techtest.application.usecase.GetSimilarProductDetails;
+import com.mvabal.techtest.infraestructure.dto.ProductDto;
+import com.mvabal.techtest.infraestructure.mapper.ProductMapper;
 
 @RestController
 @RequestMapping("/product")
@@ -20,12 +21,13 @@ public class GetSimilarProductsWithDetailsController {
 
   public GetSimilarProductsWithDetailsController(@Autowired final GetSimilarProductDetails service) {
     this.service = service;
-
   }
 
   @GetMapping("/{productId}/similar")
   public ResponseEntity<List<ProductDto>> getSimilarProducts(@PathVariable final String productId) {
-    return ResponseEntity.ok(service.getSimilarProductsWithDetails(productId));
+    List<ProductDto> products = service.getSimilarProductsWithDetails(productId).stream()
+        .map(ProductMapper::toDto)
+        .toList();
+    return ResponseEntity.ok(products);
   }
-
 }

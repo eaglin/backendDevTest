@@ -1,4 +1,3 @@
-
 package com.mvabal.techtest.application.usecase;
 
 import java.util.List;
@@ -6,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.mvabal.techtest.application.dtos.ProductDto;
+import com.mvabal.techtest.domain.model.Product;
 import com.mvabal.techtest.domain.repository.ProductRepository;
 
 @Service
@@ -18,7 +17,7 @@ public class GetSimilarProductDetails {
     this.productRepository = productRepository;
   }
 
-  public List<ProductDto> getSimilarProductsWithDetails(String productId) {
+  public List<Product> getSimilarProductsWithDetails(String productId) {
     return productRepository.getSimilarProductsWithDetails(productId);
   }
 }

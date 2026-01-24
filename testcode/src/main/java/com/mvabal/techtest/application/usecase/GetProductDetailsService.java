@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.mvabal.techtest.application.dtos.ProductDto;
+import com.mvabal.techtest.domain.model.Product;
 import com.mvabal.techtest.domain.repository.ProductRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class GetProductDetailsService {
     this.productRepository = productRepository;
   }
 
-  public Optional<ProductDto> getProductDetails(String productId) {
+  public Optional<Product> getProductDetails(String productId) {
     return productRepository.getProductDetails(productId);
   }
 }

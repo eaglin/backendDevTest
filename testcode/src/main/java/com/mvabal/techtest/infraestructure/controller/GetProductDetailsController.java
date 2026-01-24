@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mvabal.techtest.application.dtos.ProductDto;
 import com.mvabal.techtest.application.usecase.GetProductDetailsService;
+import com.mvabal.techtest.infraestructure.dto.ProductDto;
+import com.mvabal.techtest.infraestructure.mapper.ProductMapper;
 
 @RestController
 public class GetProductDetailsController {
@@ -20,6 +21,7 @@ public class GetProductDetailsController {
   @GetMapping("/product/{productId}")
   public ResponseEntity<ProductDto> getProductDetails(@PathVariable final String productId) {
     return service.getProductDetails(productId)
+        .map(ProductMapper::toDto)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
